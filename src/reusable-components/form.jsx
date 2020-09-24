@@ -21,7 +21,7 @@ const AuthForm = ({ attr }) => {
 
   const register = async (e) => {
     try {
-      const data = await request("/api/auth/signup", "POST", form);
+      await request("/api/auth/signup", "POST", form);
     } catch (e) {}
   };
 

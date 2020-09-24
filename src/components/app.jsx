@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/app.css";
+import "../styles/app.scss";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useRoutes } from "../routes";
 import { useAuth } from "../hooks/auth";
