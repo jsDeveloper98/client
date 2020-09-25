@@ -26,7 +26,7 @@ const TodoList = () => {
           }
         );
 
-        setTodos([...todos, todo]);
+        setTodos([todo, ...todos]);
         setTitle("");
       } catch (e) {}
     }
@@ -68,6 +68,44 @@ const TodoList = () => {
     } catch (e) {}
   };
 
+  const activeTodos = () => {
+    return todos.filter((todo) => !todo.done);
+  };
+
+  const completedTodos = () => {
+    return todos.filter((todo) => todo.done);
+  };
+
+  const doneAllTodos = async () => {
+    try {
+      await request("/api/todo/doneAll", "POST", activeTodos(), {
+        authorization: `Bearer ${token}`,
+      });
+
+      setTodos(
+        [...todos].map(({ createdAt, title, _id, user }) => {
+          return {
+            done: true,
+            createdAt,
+            title,
+            _id,
+            user,
+          };
+        })
+      );
+    } catch (e) {}
+  };
+
+  const removeAllDoneTodos = async () => {
+    try {
+      await request("/api/todo/removeAllDone", "POST", completedTodos(), {
+        authorization: `Bearer ${token}`,
+      });
+
+      setTodos([...todos].filter((todo) => !todo.done));
+    } catch (e) {}
+  };
+
   const removeTodo = async (todo) => {
     try {
       await request(
@@ -106,14 +144,17 @@ const TodoList = () => {
     <div className="container">
       <div className="todo-form">
         <h1 className="todo-header">todos</h1>
-        <input
-          className="todo-input"
-          type="text"
-          placeholder="What needs to be done?"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          onKeyDown={createTodo}
-        />
+        <div className="input-container">
+          <i className="arrow down" onClick={doneAllTodos}></i>
+          <input
+            className="todo-input"
+            type="text"
+            placeholder="What needs to be done?"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onKeyDown={createTodo}
+          />
+        </div>
 
         <div className="todo-list">
           {filteredTodos().map((todo) => (
@@ -126,32 +167,41 @@ const TodoList = () => {
           ))}
         </div>
 
-        <div className="todo-filters">
-          <div
-            className={
-              filterParam === "all" ? "filter-btn -active" : "filter-btn"
-            }
-            onClick={() => setFilterParam("all")}
-          >
-            All
+        {todos.length && (
+          <div className="todo-filters">
+            <div
+              className={
+                filterParam === "all" ? "filter-btn -active" : "filter-btn"
+              }
+              onClick={() => setFilterParam("all")}
+            >
+              All
+            </div>
+            <div
+              className={
+                filterParam === "active" ? "filter-btn -active" : "filter-btn"
+              }
+              onClick={() => setFilterParam("active")}
+            >
+              Active
+            </div>
+            <div
+              className={
+                filterParam === "completed"
+                  ? "filter-btn -active"
+                  : "filter-btn"
+              }
+              onClick={() => setFilterParam("completed")}
+            >
+              Completed
+            </div>
+            {completedTodos().length ? (
+              <div className="remove-completed" onClick={removeAllDoneTodos}>
+                Remove Completed
+              </div>
+            ) : null}
           </div>
-          <div
-            className={
-              filterParam === "active" ? "filter-btn -active" : "filter-btn"
-            }
-            onClick={() => setFilterParam("active")}
-          >
-            Active
-          </div>
-          <div
-            className={
-              filterParam === "completed" ? "filter-btn -active" : "filter-btn"
-            }
-            onClick={() => setFilterParam("completed")}
-          >
-            Completed
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
