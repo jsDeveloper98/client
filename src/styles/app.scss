@@ -68,7 +68,7 @@ body {
     .todo-item {
       width: 100%;
       border: 2px solid $border;
-      height: 55px;
+      min-height: 55px;
       border-radius: 4px;
       margin-top: -2px;
       display: flex;
@@ -77,7 +77,7 @@ body {
       background-color: $input;
 
       .todo-toggle {
-        width: 23px;
+        min-width: 23px;
         height: 23px;
         background-color: $border;
         font-size: 21px;
@@ -95,6 +95,9 @@ body {
         margin-left: 15px;
         font-size: 20px;
         color: $white;
+        word-break: break-word;
+        flex-wrap: wrap;
+        padding: 10px 5px;
 
         &.-done {
           font-style: italic;
@@ -127,7 +130,7 @@ body {
 
     .filter-btn {
       cursor: pointer;
-      margin-left: 50px;
+      margin-left: 40px;
       &.-active {
         color: $white !important;
       }
@@ -136,7 +139,11 @@ body {
     .remove-completed {
       cursor: pointer;
       font-size: 13px;
-      margin-left: 50px;
+      margin-left: 40px;
+    }
+
+    .active-count {
+      font-size: 13px;
     }
   }
   .input-container {

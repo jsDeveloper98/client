@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { useHttp } from "../../hooks/http";
+import Filters from "./filters";
 import Todo from "./todo.item";
 
 const TodoList = () => {
@@ -34,11 +35,11 @@ const TodoList = () => {
 
   const fetchTodos = useCallback(async () => {
     try {
-      const fetched = await request("/api/todo", "GET", null, {
+      const fetchedTodos = await request("/api/todo", "GET", null, {
         authorization: `Bearer ${token}`,
       });
 
-      setTodos(fetched);
+      setTodos(fetchedTodos);
     } catch (e) {}
   }, [token, request]);
 
@@ -168,39 +169,13 @@ const TodoList = () => {
         </div>
 
         {todos.length && (
-          <div className="todo-filters">
-            <div
-              className={
-                filterParam === "all" ? "filter-btn -active" : "filter-btn"
-              }
-              onClick={() => setFilterParam("all")}
-            >
-              All
-            </div>
-            <div
-              className={
-                filterParam === "active" ? "filter-btn -active" : "filter-btn"
-              }
-              onClick={() => setFilterParam("active")}
-            >
-              Active
-            </div>
-            <div
-              className={
-                filterParam === "completed"
-                  ? "filter-btn -active"
-                  : "filter-btn"
-              }
-              onClick={() => setFilterParam("completed")}
-            >
-              Completed
-            </div>
-            {completedTodos().length ? (
-              <div className="remove-completed" onClick={removeAllDoneTodos}>
-                Remove Completed
-              </div>
-            ) : null}
-          </div>
+          <Filters
+            removeAllDoneTodos={removeAllDoneTodos}
+            completedTodos={completedTodos}
+            activeTodos={activeTodos}
+            filterParam={filterParam}
+            setFilterParam={setFilterParam}
+          />
         )}
       </div>
     </div>
