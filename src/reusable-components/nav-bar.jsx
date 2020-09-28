@@ -22,6 +22,9 @@ const BootstrapNavbar = () => {
             <Nav.Link as={Link} to="/todos">
               Todo List
             </Nav.Link>
+            <Nav.Link as={Link} to="/createpost">
+              Create Posts
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

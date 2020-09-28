@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import SignIn from "./components/auth/sign-in";
 import SignUp from "./components/auth/sign-up";
+import CreatePost from "./components/posts/create-post";
 import TodoList from "./components/todos/todo-list";
 
 export const useRoutes = (isAuthenticated) => {
@@ -11,7 +12,9 @@ export const useRoutes = (isAuthenticated) => {
         <Route path="/todos" exact>
           <TodoList />
         </Route>
-        <Redirect to="/todos" />
+        <Route path="/createpost" exact>
+          <CreatePost />
+        </Route>
       </Switch>
     );
   }
@@ -23,7 +26,6 @@ export const useRoutes = (isAuthenticated) => {
       <Route path="/signup" exact>
         <SignUp />
       </Route>
-      <Redirect to="/signin" />
     </Switch>
   );
 };

@@ -76,6 +76,12 @@ body {
       padding: 0 15px;
       background-color: $input;
 
+      &:hover {
+        .remove-todo {
+          display: block;
+        }
+      }
+
       .todo-toggle {
         min-width: 23px;
         height: 23px;
@@ -107,6 +113,7 @@ body {
       }
 
       .remove-todo {
+        display: none;
         margin-left: auto;
         font-size: 20px;
         color: $red;
@@ -169,5 +176,12 @@ body {
       left: 20px;
       cursor: pointer;
     }
+  }
+
+  .create-post-container {
+    margin-top: 250px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 }
