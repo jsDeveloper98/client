@@ -192,4 +192,10 @@ body {
     display: flex;
     justify-content: center;
   }
+
+  .jumbotron{
+    background-color: $input !important;
+    width: 700px !important;
+    margin: 0 auto !important;
+  }
 }

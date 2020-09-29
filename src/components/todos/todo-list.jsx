@@ -35,11 +35,11 @@ const TodoList = () => {
 
   const fetchTodos = useCallback(async () => {
     try {
-      const fetchedTodos = await request("/api/todo", "GET", null, {
+      const todos = await request("/api/todo", "GET", null, {
         authorization: `Bearer ${token}`,
       });
 
-      setTodos(fetchedTodos);
+      setTodos(todos);
     } catch (e) {}
   }, [token, request]);
 
