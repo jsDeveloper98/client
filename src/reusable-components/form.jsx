@@ -70,7 +70,7 @@ const AuthForm = ({ attr }) => {
         <Button
           disabled={loading}
           onClick={handleSubmit}
-          variant="primary"
+          variant="dark"
           type="submit"
         >
           Submit

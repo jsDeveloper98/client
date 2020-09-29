@@ -15,6 +15,7 @@ export const useRoutes = (isAuthenticated) => {
         <Route path="/createpost" exact>
           <CreatePost />
         </Route>
+        <Redirect to='/todos'/>
       </Switch>
     );
   }

@@ -51,7 +51,7 @@ const PostForm = () => {
         />
       </Form.Group>
 
-      <Button onClick={handleSubmit} variant="primary" type="submit">
+      <Button onClick={handleSubmit} variant="dark" type="submit" >
         Submit
       </Button>
     </Form>
